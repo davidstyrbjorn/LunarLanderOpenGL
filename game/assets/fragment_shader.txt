@@ -1,0 +1,9 @@
+#version 330
+
+// From Vertex Shader
+
+void main()
+{
+	//gl_FragColor = color.rgba;
+	gl_FragColor = vec4(1, 0, 0, 1);
+}
