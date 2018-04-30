@@ -10,11 +10,14 @@ class Shader {
 private:
 	int m_ID;
 	// Static Shader objects
-	static Shader s_VertexShader;
-	static Shader s_FragmentShader;
+	static Shader* s_Shader;
 
 	bool didCompile(int a_shader);
 	int getUniformLocation(std::string a_name);
+
+public:
+	static void init();
+	static Shader& getShader();
 
 public:
 	Shader(std::string a_vertexPath, std::string a_fragmentPath);

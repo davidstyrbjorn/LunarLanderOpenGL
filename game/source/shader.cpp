@@ -1,11 +1,27 @@
 #include"../include/shader.h"
 
+#include"../include/config.h"
+
 #define GLEW_STATIC
 #include<gl\glew.h>
 
 #include<fstream>
 #include<iostream>
 #include<vector>
+
+Shader* Shader::s_Shader = nullptr;
+
+void Shader::init()
+{
+	s_Shader = new Shader("assets\\vertex_shader.txt", "assets\\fragment_shader.txt");
+	s_Shader->bind();
+	s_Shader->setUniformMat4f(Matrix4x4::Orthographic(0, WIDTH, HEIGHT, 0, -1, 1), "projection_matrix");
+}
+
+Shader & Shader::getShader()
+{
+	return *s_Shader;
+}
 
 Shader::Shader(std::string a_vertexPath, std::string a_fragmentPath)
 {

@@ -1,9 +1,9 @@
 #version 330
 
 // From Vertex Shader
+in vec4 color;
 
 void main()
 {
-	//gl_FragColor = color.rgba;
-	gl_FragColor = vec4(1, 0, 0, 1);
+	gl_FragColor = vec4(color.rgb, 1.0);
 }
