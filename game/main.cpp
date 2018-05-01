@@ -6,8 +6,8 @@
 
 #include"include\shader.h"
 #include"include\matrix4x4.h"
-
 #include"include\lander.h"
+#include"include\mountain.h"
 
 int main() 
 {
@@ -21,7 +21,7 @@ int main()
 	glewInit();
 	glewExperimental = true;
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// Test
 	Shader::init(); // Creates the static shader object
@@ -29,11 +29,14 @@ int main()
 	Lander lander;
 	lander.setPosition(Vector2(100, 100));
 
+	Mountain mountain;
+
 	while (!glfwWindowShouldClose(window)) 
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		lander.draw();
+		mountain.draw();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

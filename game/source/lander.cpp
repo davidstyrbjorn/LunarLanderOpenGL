@@ -6,14 +6,14 @@
 #define GLEW_STATIC
 #include<gl\glew.h>
 
-const float Lander::s_Width = 110;
-const float Lander::s_Height = 70;
+const float Lander::s_Width = 32.5;
+const float Lander::s_Height = 40;
 
 Lander::Lander()
 {
-	Vector4 color(1, 0, 0, 1);
-	float y = 80;
-	float x = 70;
+	Vector4 color(1, 1, 1, 1);
+	float y = s_Height;
+	float x = s_Width;
 
 	Vertex landerVerts[] = {
 		{ Vector2(0,0),							color }, // 0
