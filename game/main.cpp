@@ -27,7 +27,7 @@ int main()
 	Shader::init(); // Creates the static shader object
 
 	Lander lander;
-	lander.setPosition(Vector2(100, 100));
+	lander.setPosition(Vector2(100, 300));
 
 	Mountain mountain;
 
@@ -35,7 +35,7 @@ int main()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		lander.draw();
+		//lander.draw();
 		mountain.draw();
 
 		glfwSwapBuffers(window);
