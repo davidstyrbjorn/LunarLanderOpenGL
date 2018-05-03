@@ -3,7 +3,7 @@
 
 #include"renderable.h" // struct vertex
 
-#define WIDTH 580
+#define WIDTH 800
 #define HEIGHT 480
 
 #endif

@@ -18,9 +18,9 @@ std::vector<int> getLandscape()
 	std::vector<int> points;
 
 	// Algorithm parameters
-	auto STEP_MAX = 2.5f;
-	auto STEP_CHANGE = 1.0f;
-	auto HEIGHT_MAX = HEIGHT;
+	auto STEP_MAX = 1.0f;
+	auto STEP_CHANGE = 0.2f;
+	auto HEIGHT_MAX = HEIGHT*0.75f;
 
 	// Initial conditions
 	auto height = random() * HEIGHT_MAX;

@@ -6,7 +6,7 @@
 
 class Mountain : public Renderable {
 private:
-	std::vector<Vector2> m_Points;
+	std::vector<int> m_Points;
 
 public:
 	Mountain();

@@ -24,16 +24,22 @@ Lander::Lander()
 		{ Vector2(-x / 2, y),					color }, // 5
 		{ Vector2(x / 2, y),					color } // 6
 	};
+	Vertex landerVerts2[] = {
+		{ Vector2(-x / 2, 0), color},
+		{ Vector2(-x, (3 * y) / 6), color },
+		{ Vector2(-x, (2 * y) / 3), color},
+		{ Vector2(-x/2,  }
+	}
 
-	unsigned int indexes[] = {
-		1, 0, 4,
-		1, 4, 2,
-		2, 4, 3,
-		2, 3, 5,
-		5, 3, 6
-	};
+	//unsigned int indexes[] = {
+	//	1, 0, 4,
+	//	1, 4, 2,
+	//	2, 4, 3,
+	//	2, 3, 5,
+	//	5, 3, 6
+	//};
 
-	unsigned int indexCount = 3 * 5;
+	//unsigned int indexCount = 3 * 5;
 
 	// Create the OpenGL buffer objects for the lander
 	// VAO
@@ -44,9 +50,9 @@ Lander::Lander()
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(landerVerts), landerVerts, GL_STATIC_DRAW);
 
-	glGenBuffers(1, &m_IBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes), indexes, GL_STATIC_DRAW);
+	//glGenBuffers(1, &m_IBO);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes), indexes, GL_STATIC_DRAW);
 
 	// Setup vertex array
 	glEnableVertexAttribArray(0);
@@ -56,7 +62,7 @@ Lander::Lander()
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 Lander::~Lander()
@@ -74,13 +80,14 @@ void Lander::draw()
 	// Bind
 	glBindVertexArray(m_VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
 
 	// Draw Call
-	glDrawElements(GL_TRIANGLES, 15, GL_UNSIGNED_INT, nullptr);
+	//glDrawElements(GL_TRIANGLES, 15, GL_UNSIGNED_INT, nullptr);
+	glDrawArrays(GL_LINE_STRIP, 0, 7);
 
 	// Unbind
 	glBindVertexArray(0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }

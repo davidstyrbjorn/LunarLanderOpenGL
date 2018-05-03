@@ -9,14 +9,16 @@
 #include"include\lander.h"
 #include"include\mountain.h"
 
+#include"include\config.h"
+
 int main() 
 {
 	if (!glfwInit()) {
 		std::cout << "Failed to init GLFW" << std::endl;
 	}
-	GLFWwindow *window = glfwCreateWindow(480, 480, "Lunar Lander", nullptr, nullptr);
+	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Lunar Lander", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
-	glViewport(0, 0, 480, 480);
+	glViewport(0, 0, WIDTH, HEIGHT);
 
 	glewInit();
 	glewExperimental = true;
@@ -27,7 +29,7 @@ int main()
 	Shader::init(); // Creates the static shader object
 
 	Lander lander;
-	lander.setPosition(Vector2(100, 300));
+	lander.setPosition(Vector2(100, 20));
 
 	Mountain mountain;
 
@@ -35,7 +37,7 @@ int main()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		//lander.draw();
+		lander.draw();
 		mountain.draw();
 
 		glfwSwapBuffers(window);

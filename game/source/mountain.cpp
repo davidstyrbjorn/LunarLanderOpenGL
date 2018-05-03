@@ -1,39 +1,49 @@
 #include"../include/mountain.h"
 
 #include"../include/mountain_generator.h"
+#include"../include/shader.h"
+#include"../include/lander.h"
 
 #define GLEW_STATIC
 #include<gl\glew.h>
 
+#include<iostream>
+#include<random>
+#include<time.h>
+
 Mountain::Mountain()
 {
-	// m_VBO
-	// m_VAO
-	// m_IBO
-
-	//m_Points = getLandscape();
-
-	std::vector<int> f = getLandscape();
 	std::vector<Vertex> data;
-	for (int x = 0; x < WIDTH; x++) {
-		if (x != 0 && x != WIDTH - 1) {
-			// We need to add the previous point + current point
-			Vertex prevVertex;
-			prevVertex.pos = Vector2(x - 1, f[x - 1]);
-			prevVertex.color = Vector4(1, 0, 0, 1);
-			data.push_back(prevVertex);
+	Vector4 color(1, 1, 1, 1);
+	Vector4 color2(0, 1, 0, 1);
+	m_Points = getLandscape();
+	// int randNum = rand()%(max-min + 1) + min; 
+	int landingXStart = rand() % (WIDTH + 1);
+	std::cout << landingXStart << std::endl;
+	int landTempY;
+	bool isPlottingLanding = false;
 
-			Vertex newVertex;
-			newVertex.pos = Vector2(x, f[x]);
-			newVertex.color = Vector4(1, 0, 0, 1);
-			data.push_back(newVertex);
+	for (int x = 0; x < m_Points.size(); x++)
+	{
+		if (x == landingXStart) {
+			isPlottingLanding = true;
+			landTempY = m_Points[x];
 		}
-		else {
-			// Only add current point because we're at the end of the line segment
-			Vertex vertex;
-			vertex.pos = Vector2(x, f[x]);
-			vertex.color = Vector4(1, 0, 0, 1);
-			data.push_back(vertex);
+
+		// CHeck if we're supposed to be plotting the landing thingy
+		if (isPlottingLanding) {
+			if (x < landingXStart + Lander::s_Width*1.5f) {
+				data.push_back({ Vector2(x, HEIGHT - landTempY), color2 });
+			}
+			else {
+				//data.push_back({ Vector2(x, HEIGHT - m_Points[x]), color });
+				isPlottingLanding = false;
+
+			}
+		}
+		if(!isPlottingLanding)
+		{
+			data.push_back({ Vector2(x, HEIGHT - m_Points[x]), color });
 		}
 	}
 
@@ -59,11 +69,14 @@ Mountain::~Mountain()
 
 void Mountain::draw()
 {
+	Shader::getShader().setUniformMat4f(Matrix4x4::Translation(Vector3(0, 0, 0)), "model_matrix");
+
 	// Draw call here
 	glBindVertexArray(m_VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 
-	glDrawArrays(GL_LINES, 0, WIDTH*2-2);
+	glDrawArrays(GL_LINE_STRIP, 0, m_Points.size()
+	);
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
