@@ -127,17 +127,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\clock.cpp" />
     <ClCompile Include="source\lander.cpp" />
     <ClCompile Include="source\matrix4x4.cpp" />
     <ClCompile Include="source\mountain.cpp" />
+    <ClCompile Include="source\physicsBody.cpp" />
     <ClCompile Include="source\shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\clock.h" />
     <ClInclude Include="include\config.h" />
     <ClInclude Include="include\lander.h" />
     <ClInclude Include="include\matrix4x4.h" />
     <ClInclude Include="include\mountain.h" />
     <ClInclude Include="include\mountain_generator.h" />
+    <ClInclude Include="include\PhysicsBody.h" />
     <ClInclude Include="include\renderable.h" />
     <ClInclude Include="include\shader.h" />
     <ClInclude Include="include\vector.h" />

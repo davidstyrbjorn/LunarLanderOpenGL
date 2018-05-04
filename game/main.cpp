@@ -8,8 +8,8 @@
 #include"include\matrix4x4.h"
 #include"include\lander.h"
 #include"include\mountain.h"
-
 #include"include\config.h"
+#include"include\clock.h"
 
 int main() 
 {
@@ -19,29 +19,38 @@ int main()
 	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Lunar Lander", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 	glViewport(0, 0, WIDTH, HEIGHT);
+	glfwSwapInterval(1);
 
 	glewInit();
 	glewExperimental = true;
-
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// Test
 	Shader::init(); // Creates the static shader object
 
 	Lander lander;
 	lander.setPosition(Vector2(100, 20));
-
 	Mountain mountain;
+
+	Clock clock;
+	clock.Start();
+	float deltaTime = 0;
+	double k1, k2;
 
 	while (!glfwWindowShouldClose(window)) 
 	{
+		k1 = clock.GetTicks();
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		lander.draw();
 		mountain.draw();
 
+		k2 = clock.GetTicks();
+		lander.update(k2 - k1);
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+
+		clock.Reset();
 	}
 
 	glfwTerminate();

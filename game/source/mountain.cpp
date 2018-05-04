@@ -19,7 +19,6 @@ Mountain::Mountain()
 	m_Points = getLandscape();
 	// int randNum = rand()%(max-min + 1) + min; 
 	int landingXStart = rand() % (WIDTH + 1);
-	std::cout << landingXStart << std::endl;
 	int landTempY;
 	bool isPlottingLanding = false;
 
