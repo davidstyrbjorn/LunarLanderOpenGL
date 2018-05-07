@@ -22,6 +22,6 @@ public:
 	~Lander();
 
 	void draw() override;
-	void update(float dt);
+	void update();
 
 };

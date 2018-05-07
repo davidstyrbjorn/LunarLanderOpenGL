@@ -73,8 +73,7 @@ void Lander::draw()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void Lander::update(float dt)
+void Lander::update()
 {
-	m_PhysicsBody.update(dt);
-	std::cout << dt << std::endl;
+	m_PhysicsBody.update();
 }

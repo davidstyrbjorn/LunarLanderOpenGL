@@ -10,6 +10,10 @@
 #include"include\mountain.h"
 #include"include\config.h"
 #include"include\clock.h"
+#include"include\input.h"
+
+#define FPS 60
+#define MS 1000/FPS
 
 int main() 
 {
@@ -26,6 +30,7 @@ int main()
 
 	// Test
 	Shader::init(); // Creates the static shader object
+	Input::instance(); // Callback creation
 
 	Lander lander;
 	lander.setPosition(Vector2(100, 20));
@@ -33,24 +38,21 @@ int main()
 
 	Clock clock;
 	clock.Start();
-	float deltaTime = 0;
-	double k1, k2;
 
 	while (!glfwWindowShouldClose(window)) 
 	{
-		k1 = clock.GetTicks();
-		glClear(GL_COLOR_BUFFER_BIT);
+		if (clock.GetTicks() > MS) 
+		{
+			glClear(GL_COLOR_BUFFER_BIT);
 
-		lander.draw();
-		mountain.draw();
+			lander.draw();
+			mountain.draw();
 
-		k2 = clock.GetTicks();
-		lander.update(k2 - k1);
+			lander.update();
 
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-
-		clock.Reset();
+			glfwSwapBuffers(window);
+			glfwPollEvents();
+		}
 	}
 
 	glfwTerminate();
