@@ -4,12 +4,12 @@
 
 class PhysicsBody {
 private:
-	Vector2 m_Pos; // s
-	Vector2 m_Displacement; // dv
-	Vector2 m_Acceleration; // da -> x
+	Vector2 m_Pos; 
+	Vector2 m_Displacement; 
 
-	const float GRAVITY = 0.5f; // Gravity constant
-	const float WEIGHT = 5.0f; // Weight constant ( this feels weird )
+	const float GRAVITY = 2.5f; // Gravity constant
+	const float UPWARDS_FORCE = 1.75f;
+	const float HORIZONTAL_FORCE = 2.5f;
 
 public:
 	PhysicsBody();

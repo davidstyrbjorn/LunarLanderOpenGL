@@ -11,6 +11,7 @@
 #include"include\config.h"
 #include"include\clock.h"
 #include"include\input.h"
+#include"include\game_master.h"
 
 #define FPS 60
 #define MS 1000/FPS
@@ -34,7 +35,8 @@ int main()
 
 	Lander lander;
 	lander.setPosition(Vector2(100, 20));
-	Mountain mountain;
+	Mountain* mountain = Mountain::instance();
+	mountain->init();
 
 	Clock clock;
 	clock.Start();
@@ -46,9 +48,25 @@ int main()
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			lander.draw();
-			mountain.draw();
+			mountain->draw();
 
-			lander.update();
+			if (GameMaster::gameWon()) {
+				// Render "you just won!"
+				if (Input::instance()->isKeyDown(GLFW_KEY_R)) {
+					// Reset the game 
+					lander.reset();
+					mountain->reset();
+					GameMaster::reset();
+				}
+			}
+			else if (GameMaster::gameLost()) {
+				// Render "you just lost!"
+				lander.lost();
+				mountain->lost();
+			}
+			else {
+				lander.update();
+			}
 
 			glfwSwapBuffers(window);
 			glfwPollEvents();

@@ -3,6 +3,8 @@
 // From Vertex Shader
 in vec4 color;
 
+uniform int gameOver = 0;
+
 void main()
 {
 	gl_FragColor = vec4(color.rgb, 1.0);

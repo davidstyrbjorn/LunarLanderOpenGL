@@ -11,14 +11,31 @@
 #include<random>
 #include<time.h>
 
+Mountain* Mountain::m_Instance = nullptr;
+
+Mountain * Mountain::instance()
+{
+	if (m_Instance == nullptr)
+		m_Instance = new Mountain();
+	return m_Instance;
+}
+
 Mountain::Mountain()
 {
+
+}
+
+void Mountain::init()
+{
+	m_Points = getLandscape();
 	std::vector<Vertex> data;
 	Vector4 color(1, 1, 1, 1);
 	Vector4 color2(0, 1, 0, 1);
-	m_Points = getLandscape();
+
 	// int randNum = rand()%(max-min + 1) + min; 
 	int landingXStart = rand() % (WIDTH + 1);
+	m_LandingPadX.x = landingXStart;
+	m_LandingPadX.y = landingXStart + Lander::s_Width * 1.5f;
 	int landTempY;
 	bool isPlottingLanding = false;
 
@@ -32,6 +49,7 @@ Mountain::Mountain()
 		// CHeck if we're supposed to be plotting the landing thingy
 		if (isPlottingLanding) {
 			if (x < landingXStart + Lander::s_Width*1.5f) {
+				m_Points[x] = landTempY;
 				data.push_back({ Vector2(x, HEIGHT - landTempY), color2 });
 			}
 			else {
@@ -61,9 +79,14 @@ Mountain::Mountain()
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
-Mountain::~Mountain()
-{
 
+void Mountain::reset()
+{
+	this->init();
+}
+
+void Mountain::lost()
+{
 }
 
 void Mountain::draw()
@@ -74,8 +97,7 @@ void Mountain::draw()
 	glBindVertexArray(m_VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 
-	glDrawArrays(GL_LINE_STRIP, 0, m_Points.size()
-	);
+	glDrawArrays(GL_LINE_STRIP, 0, m_Points.size());
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);

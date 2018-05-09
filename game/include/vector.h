@@ -1,11 +1,18 @@
 #pragma once
 
+#include<iostream>
+
 struct Vector2 {
 	float x, y;
 
 	// Constructor
 	Vector2() : x(0), y(0) { }
 	Vector2(float _x, float _y) : x(_x), y(_y) { } 
+
+	// Operator
+	friend Vector2 operator+(const Vector2& lhs, const Vector2& rhs) {
+		return Vector2(lhs.x + rhs.x, lhs.y + rhs.y);
+	}
 };
 
 

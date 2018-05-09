@@ -20,8 +20,6 @@ Input::Input()
 	for (int i = 0; i < 1024; i++) {
 		m_Keys[i] = GLFW_RELEASE;
 	}
-
-	std::cout << "WHAT";
 }
 
 bool Input::isKeyDown(int a_Key)

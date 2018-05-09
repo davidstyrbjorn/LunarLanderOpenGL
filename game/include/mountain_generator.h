@@ -7,12 +7,15 @@
 #include<time.h>
 #include<vector>
 
-float random() {
+static bool landscapeCreated = false;
+static std::vector<int> staticLandscape = { };
+
+static float random() {
 	float x = rand() / (float)RAND_MAX;
 	return x;
 }
 
-std::vector<int> getLandscape()
+static std::vector<int> getLandscape()
 {
 	srand(time(NULL));
 	std::vector<int> points;
@@ -48,4 +51,13 @@ std::vector<int> getLandscape()
 	}
 
 	return points;
+}
+
+static std::vector<int> getStaticLandscape()
+{
+	if (landscapeCreated == false) {
+		staticLandscape = getLandscape();
+		landscapeCreated = true;
+	}
+	return staticLandscape;
 }
