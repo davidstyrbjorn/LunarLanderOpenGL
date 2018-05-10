@@ -2,6 +2,8 @@
 
 #include"renderable.h"
 #include"PhysicsBody.h"
+#include"fuel.h"
+
 #include<vector>
 
 // Lunar Lander Obejct
@@ -11,7 +13,6 @@ public:
 	// Static constants for the lander
 	const static float s_Width;
 	const static float s_Height;
-	const static int s_MaxFuel;
 
 private:
 	std::vector<Vertex> m_LanderVerticesMain;
@@ -20,6 +21,7 @@ private:
 	Vector2 m_LandingGearPosition[2];
 
 	PhysicsBody m_PhysicsBody;
+	FuelBar m_FuelBar;
 
 	Vector4 m_Color = Vector4(1, 1, 1, 1);
 

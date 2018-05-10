@@ -9,12 +9,14 @@ PhysicsBody::PhysicsBody()
 {
 	m_Pos = Vector2(0, 0);
 	m_Displacement = Vector2(0, 0);
+	m_CurrentFuel = MAX_FUEL;
 }
 
 void PhysicsBody::moveUp()
 {
 	// Affect the lander with gravity force unless we're tryin to go up!
-	if (Input::instance()->isKeyDown(GLFW_KEY_W)) {
+	if (Input::instance()->isKeyDown(GLFW_KEY_W) && m_CurrentFuel > 0) {
+		m_CurrentFuel--;
 		if (m_Displacement.y > -UPWARDS_FORCE) {
 			m_Displacement.y -= UPWARDS_FORCE*0.05f;
 		}
@@ -28,11 +30,6 @@ void PhysicsBody::moveUp()
 
 void PhysicsBody::moveSide()
 {
-}
-
-void PhysicsBody::update()
-{
-	// Right & Left 
 	if (Input::instance()->isKeyDown(GLFW_KEY_D)) {
 		if (m_Displacement.x < HORIZONTAL_FORCE) {
 			m_Displacement.x += HORIZONTAL_FORCE * 0.01;
@@ -48,6 +45,12 @@ void PhysicsBody::update()
 			m_Displacement.x *= 0.999f;
 		}
 	}
+}
+
+void PhysicsBody::update()
+{
+	moveUp();
+	moveSide();
 
 	m_Pos.x += m_Displacement.x;
 	m_Pos.y += m_Displacement.y;

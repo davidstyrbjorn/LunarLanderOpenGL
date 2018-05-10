@@ -12,9 +12,8 @@
 
 const float Lander::s_Width = 32.5;
 const float Lander::s_Height = 40;
-const int Lander::s_MaxFuel = 100;
 
-Lander::Lander() : m_PhysicsBody()
+Lander::Lander() : m_PhysicsBody(), m_FuelBar(m_PhysicsBody)
 {
 	// Create the OpenGL buffer objects for the lander
 	// VAO
@@ -48,6 +47,7 @@ void Lander::lost()
 void Lander::reset()
 {
 	m_PhysicsBody.setPosition(Vector2(0, 0));
+	m_PhysicsBody.setFuel(m_PhysicsBody.getFuel() + 50);
 }
 
 void Lander::draw()
@@ -91,17 +91,19 @@ void Lander::draw()
 		}
 	}
 
-	// Bind
+	m_FuelBar.draw();
+
+	//// Bind
 	glBindVertexArray(m_VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-
+	
 	// Drawing main part of lander
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * m_LanderVerticesMain.size(), m_LanderVerticesMain.data(), GL_STATIC_DRAW);
 	glDrawArrays(GL_LINE_STRIP, 0, 4);
 	// Drawing lower part of lander
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * m_LanderVerticesLower.size(), m_LanderVerticesLower.data(), GL_STATIC_DRAW);
 	glDrawArrays(GL_LINE_STRIP, 0, 4);
-
+	
 	// Unbind
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);

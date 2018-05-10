@@ -12,6 +12,7 @@ struct Vertex {
 class Renderable {
 protected:
 	Vector2 m_Pos;
+	Vector2 m_Size;
 	Vector4 m_Color;
 
 	unsigned int m_VBO; // vertex buffer object

@@ -128,6 +128,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="source\clock.cpp" />
+    <ClCompile Include="source\fuel.cpp" />
     <ClCompile Include="source\game_master.cpp" />
     <ClCompile Include="source\input.cpp" />
     <ClCompile Include="source\lander.cpp" />
@@ -139,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="include\clock.h" />
     <ClInclude Include="include\config.h" />
+    <ClInclude Include="include\fuel.h" />
     <ClInclude Include="include\game_master.h" />
     <ClInclude Include="include\input.h" />
     <ClInclude Include="include\lander.h" />
