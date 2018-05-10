@@ -11,10 +11,8 @@ PhysicsBody::PhysicsBody()
 	m_Displacement = Vector2(0, 0);
 }
 
-void PhysicsBody::update()
+void PhysicsBody::moveUp()
 {
-	// Reset displacement 
-
 	// Affect the lander with gravity force unless we're tryin to go up!
 	if (Input::instance()->isKeyDown(GLFW_KEY_W)) {
 		if (m_Displacement.y > -UPWARDS_FORCE) {
@@ -26,6 +24,14 @@ void PhysicsBody::update()
 			m_Displacement.y += GRAVITY*0.01f;
 		}
 	}
+}
+
+void PhysicsBody::moveSide()
+{
+}
+
+void PhysicsBody::update()
+{
 	// Right & Left 
 	if (Input::instance()->isKeyDown(GLFW_KEY_D)) {
 		if (m_Displacement.x < HORIZONTAL_FORCE) {

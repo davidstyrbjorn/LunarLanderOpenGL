@@ -12,6 +12,7 @@
 
 const float Lander::s_Width = 32.5;
 const float Lander::s_Height = 40;
+const int Lander::s_MaxFuel = 100;
 
 Lander::Lander() : m_PhysicsBody()
 {

@@ -11,6 +11,7 @@ public:
 	// Static constants for the lander
 	const static float s_Width;
 	const static float s_Height;
+	const static int s_MaxFuel;
 
 private:
 	std::vector<Vertex> m_LanderVerticesMain;

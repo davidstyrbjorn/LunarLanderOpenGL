@@ -26,6 +26,7 @@ public:
 	void bind();
 	void unbind();
 
+	void setUniform1i(const int a_value, std::string a_name);
 	void setUniformMat4f(const Matrix4x4& a_matrix, std::string a_name);
 	void setUniform4f(const Vector4& a_vector, std::string a_name);
 	void setUniform2f(const Vector2& a_vector, std::string a_name);

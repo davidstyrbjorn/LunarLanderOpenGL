@@ -14,6 +14,8 @@ private:
 public:
 	PhysicsBody();
 
+	void moveUp();
+	void moveSide();
 	void update();
 
 	Vector2 getPosition() { return m_Pos; }

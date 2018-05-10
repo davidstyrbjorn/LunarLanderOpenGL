@@ -52,7 +52,7 @@ int main()
 
 			if (GameMaster::gameWon()) {
 				// Render "you just won!"
-				if (Input::instance()->isKeyDown(GLFW_KEY_R)) {
+				if (Input::instance()->isKeyDown(GLFW_KEY_SPACE)) {
 					// Reset the game 
 					lander.reset();
 					mountain->reset();
@@ -61,6 +61,7 @@ int main()
 			}
 			else if (GameMaster::gameLost()) {
 				// Render "you just lost!"
+				Shader::getShader().setUniform1i(1, "gameOver");
 				lander.lost();
 				mountain->lost();
 			}

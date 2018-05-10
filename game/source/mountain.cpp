@@ -34,6 +34,9 @@ void Mountain::init()
 
 	// int randNum = rand()%(max-min + 1) + min; 
 	int landingXStart = rand() % (WIDTH + 1);
+	if (landingXStart > WIDTH / 2) {
+		landingXStart -= Lander::s_Width*1.5f;
+	}
 	m_LandingPadX.x = landingXStart;
 	m_LandingPadX.y = landingXStart + Lander::s_Width * 1.5f;
 	int landTempY;
