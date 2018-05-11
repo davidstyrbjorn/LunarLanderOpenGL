@@ -3,6 +3,7 @@
 #define GLEW_STATIC
 #include<GL\glew.h>
 #include<GLFW\glfw3.h>
+#include<random>
 
 #include"include\shader.h"
 #include"include\matrix4x4.h"
@@ -12,6 +13,10 @@
 #include"include\clock.h"
 #include"include\input.h"
 #include"include\game_master.h"
+#include"include\sound.h"
+
+#include<al.h>
+#include<alc.h>
 
 #define FPS 60
 #define MS 1000/FPS
@@ -22,6 +27,7 @@ int main()
 		std::cout << "Failed to init GLFW" << std::endl;
 	}
 	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Lunar Lander", nullptr, nullptr);
+	glfwSetWindowTitle(window, "Lunar Lander || SCORE: 0");
 	glfwMakeContextCurrent(window);
 	glViewport(0, 0, WIDTH, HEIGHT);
 	glfwSwapInterval(1);
@@ -41,6 +47,20 @@ int main()
 	Clock clock;
 	clock.Start();
 
+	bool shakeTrigger = false;
+	int shakeTimer = 0;
+	int shakeStrength = 20;
+
+	ALCcontext *context;
+	ALCdevice *device = alcOpenDevice(NULL); // Defaults to "preferred device"
+	if (device != nullptr) {
+		context = alcCreateContext(device, NULL);
+		alcMakeContextCurrent(context);
+	}
+
+	Sound sound("assets\\gas.wav");
+	sound.play();
+
 	while (!glfwWindowShouldClose(window)) 
 	{
 		if (clock.GetTicks() > MS) 
@@ -49,6 +69,10 @@ int main()
 
 			lander.draw();
 			mountain->draw();
+
+			if (Input::instance()->isKeyDown(GLFW_KEY_W)) {
+				sound.play();
+			}
 
 			if (GameMaster::gameWon()) {
 				// Render "you just won!"
@@ -64,9 +88,22 @@ int main()
 				Shader::getShader().setUniform1i(1, "gameOver");
 				lander.lost();
 				mountain->lost();
+				shakeTrigger = true;
+				glfwSetWindowTitle(window, "Lunar Lander || GAME OVER!");
 			}
 			else {
 				lander.update();
+			}
+
+			if (shakeTrigger) {
+				if (shakeTimer < 20) {
+					shakeTimer++;
+					int x, y;
+					glfwGetWindowPos(window, &x, &y);
+					int new_x = x + (rand() % shakeStrength) - shakeStrength/2;
+					int new_y = y + (rand() % shakeStrength) - shakeStrength/2;
+					glfwSetWindowPos(window, new_x, new_y);
+				}
 			}
 
 			glfwSwapBuffers(window);

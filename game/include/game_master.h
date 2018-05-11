@@ -1,11 +1,14 @@
 #pragma once
 
+#include"sound.h"
+
 class GameMaster {
 
 private:
 	// Static members used across the game
 	static bool s_gameOver;
 	static bool s_gameWon;
+	static int s_Score;
 
 public:
 	GameMaster();
