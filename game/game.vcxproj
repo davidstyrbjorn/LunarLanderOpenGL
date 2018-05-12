@@ -162,6 +162,7 @@
   <ItemGroup>
     <Media Include="assets\crashed.wav" />
     <Media Include="assets\gas.wav" />
+    <Media Include="assets\landing.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,11 +18,15 @@
 #include<al.h>
 #include<alc.h>
 
+#include<Windows.h>
+
 #define FPS 60
 #define MS 1000/FPS
 
 int main() 
 {
+	FreeConsole();
+
 	if (!glfwInit()) {
 		std::cout << "Failed to init GLFW" << std::endl;
 	}
@@ -58,9 +62,6 @@ int main()
 		alcMakeContextCurrent(context);
 	}
 
-	Sound sound("assets\\gas.wav");
-	sound.play();
-
 	while (!glfwWindowShouldClose(window)) 
 	{
 		if (clock.GetTicks() > MS) 
@@ -70,17 +71,15 @@ int main()
 			lander.draw();
 			mountain->draw();
 
-			if (Input::instance()->isKeyDown(GLFW_KEY_W)) {
-				sound.play();
-			}
-
 			if (GameMaster::gameWon()) {
 				// Render "you just won!"
-				if (Input::instance()->isKeyDown(GLFW_KEY_SPACE)) {
-					// Reset the game 
-					lander.reset();
-					mountain->reset();
-					GameMaster::reset();
+				for (Event event : Input::instance()->polledEvents()) {
+					if (event.type == GLFW_PRESS) {
+						// Reset the game 
+						lander.reset();
+						mountain->reset();
+						GameMaster::reset();
+					}
 				}
 			}
 			else if (GameMaster::gameLost()) {
@@ -105,6 +104,8 @@ int main()
 					glfwSetWindowPos(window, new_x, new_y);
 				}
 			}
+
+			Input::instance()->clearPolledEvents();
 
 			glfwSwapBuffers(window);
 			glfwPollEvents();

@@ -31,4 +31,10 @@ void Input::key_callback(GLFWwindow * window, int key, int scancode, int action,
 {
 	Input *temp = Input::instance();
 	temp->m_Keys[key] = action;
+	if (action == GLFW_PRESS) {
+		temp->pollEvent({ Type::KEY_PRESSED, key });
+	}
+	else if (action == GLFW_RELEASE) {
+		temp->pollEvent({ Type::KEY_RELEASED, key });
+	}
 }

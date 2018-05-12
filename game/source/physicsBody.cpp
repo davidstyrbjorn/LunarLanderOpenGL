@@ -1,6 +1,7 @@
 #include"../include/PhysicsBody.h"
 
 #include"../include/input.h"
+#include"../include/sound.h"
 
 #include<GLFW\glfw3.h>
 #include<iostream>
@@ -17,6 +18,11 @@ void PhysicsBody::moveUp()
 	// Affect the lander with gravity force unless we're tryin to go up!
 	if (Input::instance()->isKeyDown(GLFW_KEY_W) && m_CurrentFuel > 0) {
 		m_CurrentFuel--;
+
+		static Sound sound("assets\\gas.wav");
+		if(!sound.isPlaying())
+			sound.play();
+
 		if (m_Displacement.y > -UPWARDS_FORCE) {
 			m_Displacement.y -= UPWARDS_FORCE*0.05f;
 		}

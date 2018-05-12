@@ -16,6 +16,9 @@ GameMaster::GameMaster()
 void GameMaster::landingPerformed()
 {
 	if (!s_gameWon) {
+		static Sound sound("assets\\landing.wav");
+		sound.play();
+
 		s_Score++;
 		std::string temp = "Lunar Lander || SCORE: " + std::to_string(s_Score);
 		glfwSetWindowTitle(glfwGetCurrentContext(), temp.c_str());
@@ -26,8 +29,8 @@ void GameMaster::landingPerformed()
 void GameMaster::crashPerformed()
 {
 	if (!s_gameOver) {
-		Sound temp("assets\\crashed.wav");
-		temp.play();
+		static Sound sound("assets\\crashed.wav");
+		sound.play();
 	}
 	s_gameOver = true;
 }

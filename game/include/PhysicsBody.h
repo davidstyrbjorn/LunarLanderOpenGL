@@ -22,6 +22,7 @@ public:
 
 	Vector2 getPosition() { return m_Pos; }
 	void setPosition(Vector2 a_Pos) { m_Pos = a_Pos; }
+	void reset() { m_Displacement = Vector2(0, 0); }
 	void setFuel(int a_Value) { m_CurrentFuel = a_Value; }
 	int getFuel() { return m_CurrentFuel; }
 	const int getMaxFuel() { return MAX_FUEL; }

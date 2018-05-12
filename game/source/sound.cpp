@@ -12,6 +12,13 @@ void Sound::play()
 	alSourcePlay(m_Source.m_SourceHndl);
 }
 
+bool Sound::isPlaying()
+{
+	int playing;
+	alGetSourcei(m_Source.m_SourceHndl, AL_SOURCE_STATE, &playing);
+	return (playing == AL_PLAYING) ? true : false;
+}
+
 SoundBuffer::SoundBuffer(const char* a_Path) 
 {
 	alGenBuffers(1, &m_BufferHndl);
@@ -21,6 +28,11 @@ SoundBuffer::SoundBuffer(const char* a_Path)
 	if (alGetError() != AL_NO_ERROR) {
 		std::cout << "Error: SoundBuffer::SoundBuffer()\n";
 	}
+}
+
+SoundBuffer::~SoundBuffer()
+{
+	alDeleteBuffers(1, &m_BufferHndl);
 }
 
 SoundSource::SoundSource(const char * a_Path) : m_Buffer(a_Path)
@@ -38,4 +50,9 @@ SoundSource::SoundSource(const char * a_Path) : m_Buffer(a_Path)
 	
 	// Attatch buffer to source
 	alSourcei(m_SourceHndl, AL_BUFFER, m_Buffer.m_BufferHndl);
+}
+
+SoundSource::~SoundSource()
+{
+	alDeleteSources(1, &m_SourceHndl);
 }
